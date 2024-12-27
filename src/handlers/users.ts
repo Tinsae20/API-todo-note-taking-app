@@ -4,7 +4,7 @@ export function getUsers(req:Request, res:Response) {
     res.send([])
 }
 
-export function getUser(req:Request, res:Response) {
+export function getUserByID(req:Request, res:Response) {
     res.send({})
 }
 
