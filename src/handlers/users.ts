@@ -10,7 +10,7 @@ export function getUserByID(req:Request, res:Response) {
     res.send({})
 }
 
-export function createUser(req:Request<{}, {}, CreateUserDto, 
+export function createUser(req:Request<{id:string}, {}, CreateUserDto, 
     CreateUserQueryParams>, res:Response) {
     req.query.loginAfterCreate
 }
