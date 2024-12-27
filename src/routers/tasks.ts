@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { getTaskbyID, getTasks } from "../handlers/tasks";
+import { createTask, getTaskbyID, getTasks } from "../handlers/tasks";
 
 const router = Router()
 
 router.get('/', getTasks)
 router.get('/:id', getTaskbyID)
+
+router.post('/', createTask)
 
 export default router
