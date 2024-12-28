@@ -3,6 +3,7 @@ import http from 'http'
 
 import usersRouter from './routers/users'
 import taskRouter from './routers/tasks'
+import { loggingHandler } from './middleware/loggingHandler'
 
 export const app = express()
 
@@ -14,6 +15,12 @@ export const Main = () => {
     logging.info('---------------------------------------------------------')
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
+
+    logging.info('---------------------------------------------------------')
+    logging.info('Logging & Configuration')
+    logging.info('---------------------------------------------------------')
+
+    app.use(loggingHandler)
 }
 
 app.use('/api/users/', usersRouter)
