@@ -4,6 +4,7 @@ import http from 'http'
 import usersRouter from './routers/users'
 import taskRouter from './routers/tasks'
 import { loggingHandler } from './middleware/loggingHandler'
+import { corsHandler } from './middleware/corsHandler'
 
 export const app = express()
 
@@ -21,6 +22,16 @@ export const Main = () => {
     logging.info('---------------------------------------------------------')
 
     app.use(loggingHandler)
+    app.use(corsHandler)
+
+    logging.info('---------------------------------------------------------')
+    logging.info('Define Controller Routing')
+    logging.info('---------------------------------------------------------')
+
+    // app.get('/main/healthcheck', (req: Request, res: Response, next: NextFunction) => {
+    //     return res.status(200).json({hello : "Tinsu!"})
+    // })
+    
 }
 
 app.use('/api/users/', usersRouter)
