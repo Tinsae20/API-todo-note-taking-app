@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/handlers/users.ts","./src/routers/users.ts"],"version":"5.7.2"}
+{"root":["./src/server.ts","./src/config/config.ts","./src/config/logging.ts","./src/dtos/createtask.dto.ts","./src/dtos/createuser.dto.ts","./src/handlers/tasks.ts","./src/handlers/users.ts","./src/middleware/corshandler.ts","./src/middleware/logginghandler.ts","./src/middleware/routenotfound.ts","./src/routers/tasks.ts","./src/routers/users.ts","./src/types/query-params.ts","./src/types/response.ts"],"version":"5.7.3"}
