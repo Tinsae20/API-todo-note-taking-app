@@ -1,10 +1,13 @@
 import express, { NextFunction, Request, Response } from 'express'
 import http from 'http'
+import './config/logging'
 
 import usersRouter from './routers/users'
 import taskRouter from './routers/tasks'
 import { loggingHandler } from './middleware/loggingHandler'
 import { corsHandler } from './middleware/corsHandler'
+import { routeNotFound } from './middleware/routeNotFound'
+import { SERVER, SERVER_HOSTNAME, SERVER_PORT } from './config/config'
 
 export const app = express()
 
@@ -28,17 +31,38 @@ export const Main = () => {
     logging.info('Define Controller Routing')
     logging.info('---------------------------------------------------------')
 
-    // app.get('/main/healthcheck', (req: Request, res: Response, next: NextFunction) => {
-    //     return res.status(200).json({hello : "Tinsu!"})
-    // })
+    app.get('/main/check', (req: Request, res:Response, next:NextFunction) : any => {
+        return res.status(200).json({hello : "Tinsu!"})
+    })
+
+    logging.info('---------------------------------------------------------')
+    logging.info('Define Controller Routing')
+    logging.info('---------------------------------------------------------')
+    app.use(routeNotFound)
+
+    logging.info('---------------------------------------------------------')
+    logging.info('Starting Server')
+    logging.info('---------------------------------------------------------')    
     
+    httpServer = http.createServer(app)
+    httpServer.listen(SERVER.SERVER_PORT,()=>{
+        logging.info('---------------------------------------------------------')
+        logging.info('Server Started: '+ SERVER_HOSTNAME + ':' + SERVER_PORT)
+        logging.info('---------------------------------------------------------')        
+    })
 }
 
-app.use('/api/users/', usersRouter)
-app.use('/api/tasks/', taskRouter)
+export const Shutdown = (calback: any)=> httpServer && httpServer.close(calback)
 
-const PORT = 3000
+Main();
 
-app.listen(PORT, ()=> {
-    console.log(`servier is running on port ${PORT}`)
-})
+
+// app.use('/api/users/', usersRouter)
+// app.use('/api/tasks/', taskRouter)
+
+// const PORT = 3000
+
+// app.listen(PORT, ()=> {
+//     console.log(`servier is running on port ${PORT}`)
+// })
+
