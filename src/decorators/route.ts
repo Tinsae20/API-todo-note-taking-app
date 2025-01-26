@@ -12,7 +12,6 @@ export function Route(method: keyof Express, path: string = '', ...middleware: R
         }
 
         routeHandlers.get(method)?.set(routePath, [...middleware, descriptor.value])
-        logging.info("log of rh : ", routeHandlers)
         Reflect.defineMetadata('routeHandlers', routeHandlers, target)
     }
 }

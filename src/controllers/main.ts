@@ -5,12 +5,17 @@ import { Route } from "../decorators/route";
 
 @Controller('')
 class MainController {
-    @Route('get', '/check')
-    @Route('post', '/check')
 
+    @Route('get', '/check')
     getCheck(req:Request, res:Response, next:NextFunction):any {
         logging.info('Check called successully')
-        return res.status(200).json({hello : "Tinsu!", ...req.body})
+        return res.status(200).json({hello : "Tinsu!"})
+    }
+
+    @Route('post', '/check')
+    postCheck(req:Request, res:Response, next:NextFunction):any {
+        logging.info('Check called successully')
+        return res.status(200).json({...req.body})
     }
 }
 

@@ -9,6 +9,10 @@ import { routeNotFound } from './middleware/routeNotFound'
 import { SERVER, SERVER_HOSTNAME, SERVER_PORT } from './config/config'
 import { defineRoutes } from './modules/routes'
 import MainController from './controllers/main'
+import CategoryController from './controllers/category'
+import NoteController from './controllers/note'
+import StatusController from './controllers/status'
+import ToDoController from './controllers/todo'
 
 export const app = express()
 
@@ -33,10 +37,10 @@ export const Main = () => {
     logging.info('---------------------------------------------------------')
 
     defineRoutes([MainController], app)
-    
-    // app.get('/main/check', (req: Request, res:Response, next:NextFunction) : any => {
-    //     return res.status(200).json({hello : "Tinsu!"})
-    // })
+    defineRoutes([CategoryController], app)
+    defineRoutes([NoteController], app)
+    defineRoutes([StatusController], app)
+    defineRoutes([ToDoController], app)
 
     logging.info('---------------------------------------------------------')
     logging.info('Define Routing Error')
