@@ -1,13 +1,14 @@
-import express, { NextFunction, Request, Response } from 'express'
 import http from 'http'
+import express from 'express'
 import './config/logging'
+import 'reflect-metadata'
 
-import usersRouter from './routers/users'
-import taskRouter from './routers/tasks'
 import { loggingHandler } from './middleware/loggingHandler'
 import { corsHandler } from './middleware/corsHandler'
 import { routeNotFound } from './middleware/routeNotFound'
 import { SERVER, SERVER_HOSTNAME, SERVER_PORT } from './config/config'
+import { defineRoutes } from './modules/routes'
+import MainController from './controllers/main'
 
 export const app = express()
 
@@ -31,12 +32,14 @@ export const Main = () => {
     logging.info('Define Controller Routing')
     logging.info('---------------------------------------------------------')
 
-    app.get('/main/check', (req: Request, res:Response, next:NextFunction) : any => {
-        return res.status(200).json({hello : "Tinsu!"})
-    })
+    defineRoutes([MainController], app)
+    
+    // app.get('/main/check', (req: Request, res:Response, next:NextFunction) : any => {
+    //     return res.status(200).json({hello : "Tinsu!"})
+    // })
 
     logging.info('---------------------------------------------------------')
-    logging.info('Define Controller Routing')
+    logging.info('Define Routing Error')
     logging.info('---------------------------------------------------------')
     app.use(routeNotFound)
 
@@ -56,13 +59,4 @@ export const Shutdown = (calback: any)=> httpServer && httpServer.close(calback)
 
 Main();
 
-
-// app.use('/api/users/', usersRouter)
-// app.use('/api/tasks/', taskRouter)
-
-// const PORT = 3000
-
-// app.listen(PORT, ()=> {
-//     console.log(`servier is running on port ${PORT}`)
-// })
 
