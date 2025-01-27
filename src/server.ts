@@ -15,6 +15,7 @@ import CategoryController from './controllers/category'
 import NoteController from './controllers/note'
 import StatusController from './controllers/status'
 import ToDoController from './controllers/todo'
+import { decalreHandler } from './middleware/declareHandler';
 
 export const app = express()
 dontenv.config();
@@ -56,6 +57,7 @@ export const Main = async() => {
     logging.info('Logging & Configuration')
     logging.info('---------------------------------------------------------')
 
+    app.use(decalreHandler)
     app.use(loggingHandler)
     app.use(corsHandler)
 
